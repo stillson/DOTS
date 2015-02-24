@@ -1,0 +1,107 @@
+alias ls='ls -FG'
+alias l='ls -AFG'
+alias ll="/bin/ls -AFlLo"
+alias lls="ls -AFCL"
+alias lt="ls -Alpt"
+alias lu="ls -Altpu"
+#alias ls='ls-F'
+
+#if ($term == "xterm") alias rs 'eval `resize`'
+#if ($term == "vt100") alias ls "/bin/ls -F"
+#if ($term == "ansi") alias ls "/bin/ls -F"
+#if ($term == "screen") alias ls "/bin/ls -F"
+
+alias py=python
+alias p3=python3.3
+
+alias rm="rm -i"
+alias nuke="/bin/rm -rf"
+alias mv='mv -i'
+
+alias psg="ps aux | grep"
+alias rli="rlogin"
+alias up="cd .."
+alias up2="cd ../.."
+alias upp="cd ../.."
+alias up3="cd ../../.."
+alias uppp="cd ../../.."
+alias up4="cd ../../../.."
+alias upppp="cd ../../../.."
+alias up5="cd ../../../../.."
+alias uppppp="cd ../../../../.."
+alias up6="cd ../../../../../.."
+alias upppppp="cd ../../../../../.."
+
+alias   h="history | more"
+alias scr="screen -r"
+
+alias ers="stty erase "
+alias ox="open -a xcode"
+
+alias here='echo `pwd` >! ~/.here1'
+alias work='cd "`cat ~/.here1`"'
+alias h2='echo `pwd` >! ~/.here2'
+alias w2='cd "`cat ~/.here2`"'
+alias h3='echo `pwd` >! ~/.here3'
+alias w3='cd "`cat ~/.here3`"'
+alias h4='echo `pwd` >! ~/.here4'
+alias w4='cd "`cat ~/.here4`"'
+alias h5='echo `pwd` >! ~/.here5'
+alias w5='cd "`cat ~/.here5`"'
+alias heres="cat ~/.here*"
+
+alias be="build_env -n -f build_env.*"
+alias bef="build_env -n -f "
+alias bsf='ssh burn65'
+alias ud='date +%s'
+alias UTC='TZ=UTC date'
+
+xtitle () { echo -ne "\033]0;$1\007"}
+alias tm='tmux new'
+alias tml='tmux ls'
+
+tms ()  {xtitle $1 ; tmux new -s $*;       xtitle $HOST}
+tmt ()  {xtitle $1 ; tmux attach -t $*;    xtitle $HOST}
+tmtd () {xtitle $1 ; tmux attach -d -t $*; xtitle $HOST}
+#tms ()  {tmux new -s $*}
+#tmt ()  {tmux attach -t $*}
+#tmtd () {tmux attach -d -t $*}
+alias tmr='tmux rename-session'
+
+alias certlook='openssl x509 -text -in'
+alias mkTags='find . -name "*.py" -exec exctags -a -o tags {} \;'
+alias mkCTags='find . -name "*.[c|h]" -exec exctags -a -o tags {} \;'
+alias vp='vim -R -'
+alias xt='(xterm &)'
+alias myip='ifconfig | grep inet | grep -v inet6 | grep -v 127.0.0.1 | cut -f 2 -d " "'
+alias v='vim'
+alias vi='vim'
+alias t='track'
+alias tc='track -c'
+alias td='track -d'
+alias ip='ipython'
+alias win='vncviewer -passwd ~/.vnc/passwd vm10c02win0001.eng'
+alias forth='pfe'
+alias sshcli="eval \`ssh-agent\`; ssh-add;setAgent.sh"
+alias xc='xclip -o | more'
+alias cdbg="cd \`cdbug\`"
+alias getAgent=". ~/.agent"
+alias bang="chmod 755"
+alias rw="chmod 644"
+fn () {find . -type f -name $* }
+dg () {find . -type f -exec grep $* {} +}
+ppg () {find . -type f -name "*.py" -exec grep $* {} +}
+cgrep () {find . -type f -name "*.[ch]" -exec grep $* {} +}
+ccgrep () { find . -type f \( -name "*.[Cch]" -or -name "*.cpp" -or -name "*.cc" \) -exec grep $* {} + }
+fni () {find . -type f -iname $* }
+dgi () {find . -type f -exec grep -i $* {} +}
+ppgi () {find . -type f -name "*.py" -exec grep -i $* {} +}
+cgrepi () {find . -type f -name "*.[ch]" -exec grep -i $* {} +}
+ccgrepi () { find . -type f \( -name "*.[Cch]" -or -name "*.cpp" -or -name "*.cc" \) -exec grep -i $* {} + }
+alias qos=/usr/quar/openssl/bin/openssl
+alias ol='oleo --nw'
+gnm () {(gnumeric $* &)}
+tv () {tmux new-window -n $* "vi $*"}
+wv () {tmux split-window "vi $*"}
+alias ssh='/usr/local/bin/ssh'
+alias gc='grep --color=always'

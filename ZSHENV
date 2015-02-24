@@ -1,0 +1,45 @@
+# Joe Gross
+# .zshenv
+# This file is sourced EVERY time a z-shell is invoked.
+
+setenv() { export $1=$2 }
+#
+#  build a path, use tmppath to prevent re-hashing
+# 
+unset tmppath # clear path
+#stty erase 
+
+# make sure these go in front
+
+if [[ -d ~/bin                  ]] then tmppath=(~/bin $tmppath)        fi
+if [[ -d ~/bin/$ARCH        ]] then tmppath=(~/bin/$ARCH $tmppath)  fi
+
+for NEWPATH in \
+	~/local/bin /bin /usr/bin /sbin /usr/sbin \
+	/usr/local/bin /usr/local/lib /usr/games \
+	/usr/X11R6/bin /usr/local/git/bin/ .  ~/scripts
+do
+  if [[ -d $NEWPATH ]] then
+     tmppath=($tmppath $NEWPATH)
+  fi
+done
+
+path=($tmppath)
+
+# build a manpath
+
+unset manpath
+
+for NEWPATH in $HOME/man /usr/local/man /usr/X11R6/man /usr/man/X11 \
+ /usr/man /usr/share/man /usr/local/share/man
+do
+   if [[ -d $NEWPATH ]] then
+      manpath=($manpath $NEWPATH)
+   fi
+done
+export MANPATH
+
+export P4PORT=enclave.cisco.com:2666
+export P4CONFIG=P4ENV
+export NNTPSERVER=news.cisco.com
+export HOME=/data/home/cstillso

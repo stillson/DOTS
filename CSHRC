@@ -1,0 +1,103 @@
+alias ls 'ls -FG'
+alias l 'ls -AFG'
+alias ll "/bin/ls -AFlLo"
+alias lls "ls -AFCL"
+alias lt "ls -Alpt"
+alias lu "ls -Altpu"
+
+alias rm "rm -i"
+alias nuke "/bin/rm -rf"
+alias mv 'mv -i'
+
+alias psg "ps -aux | grep"
+alias up "cd .."
+alias up2 "cd ../.."
+alias upp "cd ../.."
+alias up3 "cd ../../.."
+alias uppp "cd ../../.."
+alias up4 "cd ../../../.."
+alias upppp "cd ../../../.."
+alias up5 "cd ../../../../.."
+alias uppppp "cd ../../../../.."
+alias up6 "cd ../../../../../.."
+alias upppppp "cd ../../../../../.."
+
+alias   h "history | more"
+
+alias here 'echo `pwd` >! ~/.here1'
+alias work 'cd "`cat ~/.here1`"'
+alias h2 'echo `pwd` >! ~/.here2'
+alias w2 'cd "`cat ~/.here2`"'
+alias h3 'echo `pwd` >! ~/.here3'
+alias w3 'cd "`cat ~/.here3`"'
+alias h4 'echo `pwd` >! ~/.here4'
+alias w4 'cd "`cat ~/.here4`"'
+alias h5 'echo `pwd` >! ~/.here5'
+alias w5 'cd "`cat ~/.here5`"'
+alias heres "cat ~/.here*"
+
+unset autologout
+
+setenv INSTALLS "cstillso@localhost:/net/install.eng/disk1/diskless/roots"
+setenv INSTALLSb "cstillso@vm10bsd0271.dev.sgg.cisco.com:/net/install.eng/disk1/diskless/roots"
+setenv IFROM "/diskless/roots/"
+
+if ( $?ROOT ) then
+    setenv vara   `dirname $ROOT`
+    setenv varb   `dirname $vara`
+    setenv WHERE `basename $varb`
+    setenv ASTAG `echo $WHERE | sed -E 's/([0-9]+)-([0-9])([0-9])([0-9])/--as-tag=exp-cstillso-\1-\2-\3-\4/'`
+    setenv INTAG `echo $WHERE | sed -E "s/([0-9]+)-([0-9])([0-9])([0-9])/--as-tag=$IPPROD-\1-\2-\3-\4/"`
+    setenv BUILDNAME `echo $WHERE | sed -E 's/([0-9]+)-([0-9])([0-9])([0-9])/exp-cstillso-\1-\2-\3-\4/'`
+    alias scopybuild "scp -r $IFROM$BUILDNAME $INSTALLSb"
+    alias BuildRel "./make_release.sh $ASTAG >& MAKE.OUT ; sedit"
+    alias BuildInst "./make_release.sh $INTAG >& MAKE.OUT ; sedit"
+    alias sedit "sed -i .xxx -e '1 d' $IFROM/*-*/boot/loader.rc"
+
+    if ( -f ~/cshcol ) then
+            source ~/cshcol
+    else
+            set prompt="%{\033[34m%}%B%m%b%{\033[0m%}\[%U$WHERE%u\:%~\] "
+    endif
+else
+    set prompt="%{\033[34m%}%B%m%b%{\033[0m%}\[%U---%u\:%~\] "
+endif
+
+alias getcli "p4 client -o | egrep '^Client' | cut -f 2"
+
+alias cdwork 'cd ~/iproot'
+alias cdprod  'cd ~/iproot/$IPPROD'
+alias cdrel  'cd ~/iproot/$IPPROD/release'
+alias cdap  'cd ~/iproot/ap'
+alias cdfree  'cd ~/iproot/freebsd'
+alias cdmod  'cd ~/iproot/freebsd/mods'
+alias cdsnmp  'cd ~/iproot/ap/snmp'
+alias tmb 'cat \!* | nc 172.37.10.122 7531'
+alias t '~/track'
+alias v vim
+alias vi vim
+alias vp 'vim -R -'
+setenv P4EDITOR "vim"
+alias be 'build_env -n -f ./build_env.*'
+setenv SHELL /bin/csh
+
+alias g 'grep --color=always'
+alias gi 'grep -i --color=always'
+alias fn 'find . -type f -name \!:*'
+alias dg 'find . -type f -exec grep --color=always \!:* {} +'
+alias dgi 'find . -type f -exec grep -i --color=always \!:* {} +'
+alias dgv 'find . -type f -exec grep \!:* {} +'
+alias dgvi 'find . -type f -exec grep -i \!:* {} +'
+alias ppg 'find . -type f -name "*.py" -exec grep --color=always \!:* {} +'
+alias ppgv 'find . -type f -name "*.py" -exec grep \!:* {} +'
+alias ppgi 'find . -type f -name "*.py" -exec grep -i --color=always \!:* {} +'
+alias cgrep 'find . -type f -name "*.[ch]" -exec grep --color=always \!:* {} +'
+alias cgrepi 'find . -type f -name "*.[ch]" -exec grep -i --color=always \!:* {} +'
+alias ccgrep 'find . -type f \( -name "*.[Cch]" -or -name "*.cpp" -or -name "*.cc" \) -exec grep --color=always \!:* {} + '
+alias ccgrepi 'find . -type f \( -name "*.[Cch]" -or -name "*.cpp" -or -name "*.cc" \) -exec grep -i --color=always \!:* {} + '
+alias pdiff 'p4 diff -dc5 \!:* | vim -R -'
+
+setenv MASTER_SITE_OVERRIDE http://cvs.ironport.com/packages/
+setenv MASTER_SITE_BACKUP http://cvs.ironport.com/packages/
+
+

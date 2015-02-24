@@ -1,0 +1,104 @@
+# set a resonable umask
+
+umask 22
+
+#/bin/stty erase "^H" intr "^C" kill "^U" eof "^D" susp "^Z"
+. ~/.zshcolors
+
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle :compinstall filename '/home/cstillso/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+source $HOME/.zoptions
+export EDITOR="vi"
+
+# cdpath=(.. . ~)  # places to look for things to cd into
+DIRSTACKSIZE=20 # How many directories you can return to with popd etc
+
+
+LOGCHECK=60
+
+PROMPT="
+-%F{green}|%T|%F{none}-%F{blue}(%~)%F{none}-(j:%j)-%0(?:%F{none}:%F{red})(r:%?)%F{none}-
+%B%m%b[%h]:"
+#RPROMPT=%4.
+unset RPROMPT
+
+if [[ $UID = 0 ]]; 
+then
+PROMPT='%B%m%b[%h]#' #Machine[history number]: in bold.
+fi
+PROMPT2="more> "
+PROMPT3="Choice? "
+PROMPT4="+ "
+
+READNULLCMD=less
+REPORTTIME=100
+SAVEHIST=500
+HISTSIZE=500 
+# TIMEFMT= (gotta do this)
+
+unsetopt cdablevars
+setopt nohup
+setopt autopushd
+
+bindkey -e
+
+# Now this is neat. Makes xterm title bars give you MACHINE:PWD - Damn Handy.
+# Need I add that this is Duncan's, and not mine??
+if [[ $TERM = xterm  ]];
+  then
+#    TERM=xterm
+     xa=']0;'
+     xb=' '
+#   precmd() {xtitle -t "$HOSTNAME:$PWD $USER";xtitle -i "$HOSTNAME:$USER"}
+    #precmd() {print -Pn "${xa}gemini:%~    $USER${xb}";xtitle -i "$HOSTNAME:$USER"}
+  fi
+
+function xtitleXX
+{
+typeset -i c=0;
+while [[ $# > 0 ]];
+do
+        case $1 in
+                -b)     c=0;;   # change both icon name and window title
+                -i)     c=1;;   # change icon name
+                -t)     c=2;;   # change window title
+                -)      shift; break;;
+                -*)     print -u2 "Usage: $0 [-b] [-i] [-t] title ...";
+                        return 1;;
+                *)      break;;
+        esac
+        shift;
+done
+[[ $# = 0 || "$@" = "" ]] &&    { print -u2 "$0: no title"; return 1; }
+
+exec 3>&1;
+print -u3 -n "\033"
+}
+
+source ~/.aliases
+
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.deb=01;31:*.png=01;35:*.jpg=01;35:*.gif=01;35:*.xcf=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.avi=03;32:*.gl=01;37:*.dl=01;37:';
+
+PPROC=`ps -o comm="" -cp $PPID`
+
+if [[ $PPROC = sshd ]]; then
+    . ~/.agent
+fi
+
+echo -n "your umask is "
+umask
+stty erase 
