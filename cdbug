@@ -1,0 +1,9 @@
+#!/bin/sh
+
+BPATH=/data/home/cstillso/Bugs
+BUG=`tm-sess.py`
+if [ ! -e $BPATH/$BUG ] ; then
+    mkdir -p $BPATH/$BUG
+fi
+
+echo $BPATH/$BUG
