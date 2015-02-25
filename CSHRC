@@ -100,4 +100,4 @@ alias pdiff 'p4 diff -dc5 \!:* | vim -R -'
 setenv MASTER_SITE_OVERRIDE http://cvs.ironport.com/packages/
 setenv MASTER_SITE_BACKUP http://cvs.ironport.com/packages/
 
-
+alias webserv 'python -m CGIHTTPServer'

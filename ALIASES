@@ -105,3 +105,4 @@ tv () {tmux new-window -n $* "vi $*"}
 wv () {tmux split-window "vi $*"}
 alias ssh='/usr/local/bin/ssh'
 alias gc='grep --color=always'
+alias webserv='python -m CGIHTTPServer'
